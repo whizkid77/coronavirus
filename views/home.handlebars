@@ -12,21 +12,24 @@
 
   <div id="dashboard">
     <div id="chart-wrapper">
+      <header>Confirmed Cases by Country (without China)</header>
       <div id="chart"></div>
     </div>
 
-    <header>Confirmed By Country</header>
-    <div id="top-chart-container">
-      <table class="top-chart">
-        {{#each confirmed_by_country}}
-        {{#unless_eq @index 0}}
-        <tr>
-          <td class="count">{{this.[1]}}</td>
-          <td class="country">{{this.[0]}}</td>
-        </tr>
-        {{/unless_eq}}
-        {{/each}}
-      </table>
+    <div id="dashboard-left">
+      <header id="top-chart-header">Confirmed By Country</header>
+      <div id="top-chart-container">
+        <table class="top-chart">
+          {{#each confirmed_by_country}}
+          {{#unless_eq @index 0}}
+          <tr>
+            <td class="count">{{this.[1]}}</td>
+            <td class="country">{{this.[0]}}</td>
+          </tr>
+          {{/unless_eq}}
+          {{/each}}
+        </table>
+      </div>
     </div>
 
   </div>

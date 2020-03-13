@@ -119,8 +119,17 @@ function hover(svg, path) {
     dot.append("circle")
         .attr("r", 2.5);
 
+    // Country Name
     dot.append("text")
         .style("font", "10px sans-serif")
+        .attr("text-anchor", "middle")
+        .attr("y", -20);
+
+    // Counter
+    dot.append("text")
+        .style("font", "10px sans-serif")
+        .style("font-weight", "bold")
+        .style("fill", "red")
         .attr("text-anchor", "middle")
         .attr("y", -8);
 
@@ -133,8 +142,9 @@ function hover(svg, path) {
         const i = xm - data.dates[i0] > data.dates[i1] - xm ? i1 : i0;
         const s = data.series.reduce((a, b) => Math.abs(a.values[i] - ym) < Math.abs(b.values[i] - ym) ? a : b);
         path.attr("stroke", d => d === s ? null : "#ddd").filter(d => d === s).raise();
-        dot.attr("transform", `translate(${x(data.dates[i])},${y(s.values[i])})`);
-        dot.select("text").text(s.name);
+        dot.attr("transform", `translate(${x(data.dates[i])},${y(s.values[i])})`);  
+        dot.select("text:nth-child(2)").text(s.name);
+        dot.select("text:nth-child(3)").text(s.values[i]);
     }
 
     function entered() {

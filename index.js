@@ -44,7 +44,7 @@ app.get('/', async function (req, res) {
     deaths_by_country = groupByCountry(deaths);
  
 
-    const data = {
+    const multiline_chart_data = {
         y: "Country",
         series: confirmed_by_country.slice(1).map((row) => ({
             name: row[0],
@@ -52,6 +52,9 @@ app.get('/', async function (req, res) {
         })),
         dates: confirmed_by_country[0].slice(1),
     };
+    // Remove China
+    lodash.remove(multiline_chart_data.series, country => country.name == "China");
+
 
     confirmed_header = confirmed.slice(0,1);
     confirmed = confirmed_header.concat(lodash.sortBy(confirmed.slice(1), [row => row[1], row => row[0]]));
@@ -80,7 +83,7 @@ app.get('/', async function (req, res) {
     deaths_by_country = formatNumbers(deaths_by_country);
 
     res.render('home',{
-        data_json_string: JSON.stringify(data),
+        data_json_string: JSON.stringify(multiline_chart_data),
         confirmed,
         confirmed_by_country,
         deaths_by_country,

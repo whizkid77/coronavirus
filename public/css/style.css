@@ -21,14 +21,24 @@ html, body {
     padding: 0 4px;
 }
 
+#dashboard-left {
+    width: 250px;
+    position: absolute;
+    height: 100%;
+    border: 1px solid #aaa;
+}
+
+#top-chart-header {
+    background-color: steelblue;
+    color: white;
+}
+
 #top-chart-container {
     position: absolute;
     top: 30px;
     left: 0;
-    width: 250px;
     height: calc(100% - 30px);
     overflow-y: scroll;
-    border: 1px solid #ddd;
 }
 .top-chart {
     width: 100%;
@@ -47,17 +57,19 @@ html, body {
 }
 
 #chart-wrapper {
-    padding: 50px;
+    padding: 0 30px;
     height: 700px;
+    width: 1300px;
     position: absolute;
     top: 0px;
-    left: 250px;
+    left: 251px;
+    border: 1px solid #aaa;
 }
 
 #chart {
     position: absolute;
-    top: 30px;
-    left: 30px;
+    top: 40px;
+    left: 40px;
     width: 1280px;
     height: 600px;
     margin: 0px;
