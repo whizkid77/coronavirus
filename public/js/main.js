@@ -37,8 +37,6 @@ const margin = ({top: 20, right: 20, bottom: 30, left: 30})
 data = DATA
 data.dates = data.dates.map(d3.utcParse("%Y-%m-%d"))
 
-console.log(data);
-
 const line = d3.line()
     .defined(d => !isNaN(d))
     .x((d, i) => x(data.dates[i]))
