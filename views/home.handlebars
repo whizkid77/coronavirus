@@ -1,0 +1,71 @@
+<head>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <title>Coronavirus COVID-19 Tracker</title>
+</head>
+
+<div id="content">
+
+  <h1>Coronavirus COVID-19 Tracker</h1>
+
+  <div id="chart-wrapper">
+    <div id="chart"></div>
+  </div>
+
+  <h2>Confirmed By Region</h2>
+  <table>
+    {{#each confirmed}}
+    <tr>
+      {{#each this}}
+        {{#if_eq @index 0}}
+          <td class="region-or-country">{{this}}</td>
+        {{else if_eq @index 1}}
+          <td class="region-or-country">{{this}}</td>
+        {{else}}
+          <td>{{this}}</td>
+        {{/if_eq}}
+      {{/each}}
+    </tr>
+    {{/each}}
+  </table>
+
+  <h2>Confirmed</h2>
+  <table>
+    {{#each confirmed_by_country}}
+    <tr>
+      {{#each this}}
+        {{#if_eq @index 0}}
+          <td class="region-or-country">{{this}}</td>
+        {{else}}
+          <td>{{this}}</td>
+        {{/if_eq}}
+      {{/each}}
+    </tr>
+    {{/each}}
+  </table>
+
+  <h2>Deaths</h2>
+  <table>
+    {{#each deaths_by_country}}
+    <tr>
+      {{#each this}}
+        {{#if_eq @index 0}}
+          <td class="region-or-country">{{this}}</td>
+        {{else}}
+          <td>{{this}}</td>
+        {{/if_eq}}
+      {{/each}}
+    </tr>
+    {{/each}}
+  </table>
+
+
+  <script>
+    const DATA = {{{data_json_string}}};
+  </script>
+
+  <script src="/js/main.js"></script>
+
+
+</div>
