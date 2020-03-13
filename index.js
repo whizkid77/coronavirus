@@ -1,4 +1,4 @@
-const port = 3001;
+const port = process.env.PORT || 3001;
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var lodash = require('lodash'); 
