@@ -12,6 +12,9 @@ var hbs = exphbs.create({
         if_eq: function(arg1, arg2, options) {
             return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
         },
+        unless_eq: function(arg1, arg2, options) {
+            return (arg1 != arg2) ? options.fn(this) : options.inverse(this);
+        },
     }
 });
 
@@ -72,6 +75,10 @@ app.get('/', async function (req, res) {
         return row.slice(0,1).concat(row.slice(1).reverse());
     })
 
+    // Format the numbers
+    confirmed_by_country = formatNumbers(confirmed_by_country);
+    deaths_by_country = formatNumbers(deaths_by_country);
+
     res.render('home',{
         data_json_string: JSON.stringify(data),
         confirmed,
@@ -80,6 +87,19 @@ app.get('/', async function (req, res) {
     });
 
 });
+
+function formatNumbers(data) {
+    return data.map(row => {
+        return row.map(cell => {
+            if (!isNaN(cell)) {
+                const nf = new Intl.NumberFormat();
+                return nf.format(cell);
+            } else {
+                return cell;
+            }   
+        });
+    })
+}
 
 function groupByCountry(data) {
     const offset = 4;

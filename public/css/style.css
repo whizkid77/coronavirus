@@ -8,10 +8,50 @@ html, body {
     padding: 30px;
 }
 
+#dashboard {
+    height: 700px;
+    position: relative;
+}
+
+#dashboard header {
+    height: 30px;
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: bold;
+    padding: 0 4px;
+}
+
+#top-chart-container {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 250px;
+    height: calc(100% - 30px);
+    overflow-y: scroll;
+    border: 1px solid #ddd;
+}
+.top-chart {
+    width: 100%;
+}
+.top-chart td {
+    border-bottom: 1px solid #aaa;
+}
+.top-chart .count {
+    color: red;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0 2px;
+}
+.top-chart .country {
+    padding: 0 4px;
+}
+
 #chart-wrapper {
     padding: 50px;
     height: 700px;
-    position: relative;
+    position: absolute;
+    top: 0px;
+    left: 250px;
 }
 
 #chart {
@@ -24,11 +64,12 @@ html, body {
     padding: 0px;
 }
 
-table {
+.top-chart,
+.data-chart {
     border-collapse: collapse;
 }
 
-td {
+.data-chart td {
     font-size: 11px;
     border: 1px solid #888;
     padding: 2px 4px;
@@ -36,16 +77,16 @@ td {
     cursor: pointer;
 }
 
-tr:first-child td {
+.data-chart tr:first-child td {
     font-weight: bold;
 }
 
-tr.favorite td {
+.data-chart tr.favorite td {
     background-color: #cee7ff;
 }
-tr:hover td {
+.data-chart tr:hover td {
     background-color: yellow;
 }
-tr.selected td {
+.data-chart tr.selected td {
     background-color: orange;
 }

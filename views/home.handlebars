@@ -9,12 +9,30 @@
 
   <h1>Coronavirus COVID-19 Tracker</h1>
 
-  <div id="chart-wrapper">
-    <div id="chart"></div>
+
+  <div id="dashboard">
+    <div id="chart-wrapper">
+      <div id="chart"></div>
+    </div>
+
+    <header>Confirmed By Country</header>
+    <div id="top-chart-container">
+      <table class="top-chart">
+        {{#each confirmed_by_country}}
+        {{#unless_eq @index 0}}
+        <tr>
+          <td class="count">{{this.[1]}}</td>
+          <td class="country">{{this.[0]}}</td>
+        </tr>
+        {{/unless_eq}}
+        {{/each}}
+      </table>
+    </div>
+
   </div>
 
   <h2>Confirmed By Region</h2>
-  <table>
+  <table class="data-chart">
     {{#each confirmed}}
     <tr>
       {{#each this}}
@@ -30,8 +48,8 @@
     {{/each}}
   </table>
 
-  <h2>Confirmed</h2>
-  <table>
+  <h2>Confirmed By Country</h2>
+  <table class="data-chart">
     {{#each confirmed_by_country}}
     <tr>
       {{#each this}}
@@ -45,8 +63,8 @@
     {{/each}}
   </table>
 
-  <h2>Deaths</h2>
-  <table>
+  <h2>Deaths By Country</h2>
+  <table class="data-chart">
     {{#each deaths_by_country}}
     <tr>
       {{#each this}}
