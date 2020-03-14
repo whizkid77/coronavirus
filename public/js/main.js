@@ -1,4 +1,25 @@
 
+
+/* DATA PREP */
+const height = 600;
+const width = 1280;
+const margin = ({top: 20, right: 20, bottom: 30, left: 30})
+
+const lodash = _;
+
+data = DATA
+data.dates = data.dates.map(d3.utcParse("%Y-%m-%d"))
+
+
+TOTAL_CONFIRMED = data.series.map(row => row.values[row.values.length-1])
+    .reduce((prev,cur) => prev + cur, 0)
+$('#top-value-value').text(TOTAL_CONFIRMED);
+
+// Remove China
+lodash.remove(data.series, country => country.name == "China");
+
+
+/* INTERACTIONS */
 $('td').on('click',function(){
     if ($(this).parent('tr').hasClass('selected')) {
         $('tr').removeClass('selected');
@@ -29,13 +50,6 @@ favorites.forEach(favorite => {
 
 
 
-
-const height = 600;
-const width = 1280;
-const margin = ({top: 20, right: 20, bottom: 30, left: 30})
-
-data = DATA
-data.dates = data.dates.map(d3.utcParse("%Y-%m-%d"))
 
 const line = d3.line()
     .defined(d => !isNaN(d))

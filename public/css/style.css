@@ -28,18 +28,31 @@ html, body {
     border: 1px solid #aaa;
 }
 
+#top-value {
+    height: 100px;
+}
+#top-value-header {
+    line-height: 24px;
+    text-align: center;
+}
+#top-value-value {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px;
+}
+
 #top-chart-header {
     background-color: steelblue;
     color: white;
+    height: 30px;
 }
 
 #top-chart-container {
-    position: absolute;
-    top: 30px;
-    left: 0;
-    height: calc(100% - 30px);
+    height: calc(100% - 130px);
     overflow-y: scroll;
 }
+
 .top-chart {
     width: 100%;
 }

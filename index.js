@@ -4,7 +4,8 @@ var exphbs  = require('express-handlebars');
 var lodash = require('lodash'); 
 
 var app = express();
- 
+
+const DATA_CACHE = {};
 
 var hbs = exphbs.create({
     // Specify helpers which are only registered on this instance.
@@ -33,10 +34,8 @@ app.get('/', async function (req, res) {
     const fs = require('fs').promises;
     const d3 = require("d3")
 
-    const path = './node_modules/COVID-19/csse_covid_19_data/csse_covid_19_time_series';
-    
-    const confirmed_data = await fs.readFile(`${path}/time_series_19-covid-Confirmed.csv`)
-    const deaths_data = await fs.readFile(`${path}/time_series_19-covid-Deaths.csv`)
+    const confirmed_data = await getTimeSeriesData('confirmed');
+    const deaths_data = await getTimeSeriesData('deaths');
     let confirmed = await csv.parse(confirmed_data);
     let deaths = await csv.parse(deaths_data);
 
@@ -52,9 +51,6 @@ app.get('/', async function (req, res) {
         })),
         dates: confirmed_by_country[0].slice(1),
     };
-    // Remove China
-    lodash.remove(multiline_chart_data.series, country => country.name == "China");
-
 
     confirmed_header = confirmed.slice(0,1);
     confirmed = confirmed_header.concat(lodash.sortBy(confirmed.slice(1), [row => row[1], row => row[0]]));
@@ -143,5 +139,48 @@ function groupByCountry(data) {
     })
     return final;
 }
+
+// Get data from Johns Hopkins
+async function getTimeSeriesData(type) {
+    const download = require('download');
+    const fs = require('fs');
+
+
+    if (DATA_CACHE[type] && DATA_CACHE[type].data && DATA_CACHE[type].expires > Date.now()) {
+        console.log('CACHE HIT',type)
+        return DATA_CACHE[type].data
+    }
+
+    // const path = './node_modules/COVID-19/csse_covid_19_data/csse_covid_19_time_series';
+    // fs.readFile(`${path}/time_series_19-covid-Confirmed.csv`)
+    // fs.readFile(`${path}/time_series_19-covid-Deaths.csv`)
+    
+    const host = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series';
+    let url;
+    switch (type) {
+        case 'confirmed':
+            url = `${host}/time_series_19-covid-Confirmed.csv`;
+            break;
+        case 'deaths':
+            url = `${host}/time_series_19-covid-Deaths.csv`;
+            break;
+        case 'recovered':
+            url = `${host}/time_series_19-covid-Recovered.csv`;
+            break;
+        default:
+            throw new Error();
+    }
+
+    console.log('CACHE MISS',type)
+    const data = await download(url);
+
+    DATA_CACHE[type] = {
+        data: data,
+        expires: Date.now() + 3600000, // cache for one hour
+    }
+
+    return data;
+}
+
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))

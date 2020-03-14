@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
   <title>Coronavirus COVID-19 Tracker</title>
 </head>
 
@@ -22,13 +23,18 @@
 
 
   <div id="dashboard">
-    <div id="chart-wrapper">
-      <header>Confirmed Cases by Country (without China)</header>
-      <div id="chart"></div>
-    </div>
 
     <div id="dashboard-left">
+
+      <div id="top-value">
+        <div id="top-value-header">
+          Total Confirmed
+        </div>
+        <div id="top-value-value"></div>
+      </div>
+
       <header id="top-chart-header">Confirmed By Country</header>
+
       <div id="top-chart-container">
         <table class="top-chart">
           {{#each confirmed_by_country}}
@@ -41,6 +47,12 @@
           {{/each}}
         </table>
       </div>
+    </div>
+
+
+    <div id="chart-wrapper">
+      <header>Confirmed Cases by Country (without China)</header>
+      <div id="chart"></div>
     </div>
 
   </div>
